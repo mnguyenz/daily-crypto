@@ -30,6 +30,7 @@
     "@nestjs/typeorm": "11.0.0",
     "bingx-trading-api": "1.1.6",
     "bitget-api": "2.3.2",
+    "mexc-api-sdk": "1.0.3",
     "pg": "8.13.3",
     "reflect-metadata": "0.2.0",
     "rxjs": "7.8.1"

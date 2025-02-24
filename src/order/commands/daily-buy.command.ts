@@ -32,13 +32,13 @@ export class DailyBuyCommand extends BaseCommand {
 
     public async handle(): Promise<void> {
         const options = this.program.opts();
-        const { asset = ASSETS.CRYPTO.ETH, exchange = ExchangeEnum.BITGET } = options;
+        const { asset = ASSETS.CRYPTO.ETH, exchange = ExchangeEnum.MEXC } = options;
         try {
             const orderService = this.exchangeOrderService.getExchange(exchange);
             const marketService = this.exchangeMarketService.getExchange(exchange);
             const currentPrice = await marketService.currentPrice(asset);
             if (await this.checkIsBuyOrNot(asset, currentPrice)) {
-                await orderService.buyMinimum(asset, AccountEnum.X);
+                await orderService.buyMinimum(asset, currentPrice, AccountEnum.X);
             }
         } catch (error) {
             this.error(`Error DailyBuyCommand. Error: ${error.message}`);

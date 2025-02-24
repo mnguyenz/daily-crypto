@@ -46,7 +46,7 @@ export class TradeEntity {
     @Column()
     feeAsset: string;
 
-    @ApiProperty({ example: ExchangeEnum.BINANCE })
+    @ApiProperty({ example: ExchangeEnum.BITGET })
     @Column({ nullable: true })
     exchange: ExchangeEnum;
 

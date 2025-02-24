@@ -1,8 +1,6 @@
 export enum ExchangeEnum {
-    BINANCE = 'Binance',
-    BINGX = 'Bingx',
     BITGET = 'Bitget',
-    OKX = 'Okx'
+    MEXC = 'Mexc'
 }
 
 export enum AccountEnum {
