@@ -9,9 +9,9 @@ export class BitgetMarketService implements IExchangeMarket {
 
     async currentPrice(asset: string): Promise<number> {
         const symbol = `${asset}${POSTFIX_NO_HYPHEN_USDT}`;
-        const tickerResponse = await BITGET_PUBLIC_CLIENT.getSpotTicker({ symbol });
-        if (tickerResponse.data.length > 0) {
-            return parseFloat(tickerResponse.data[0].askPr);
+        const orderBook = await BITGET_PUBLIC_CLIENT.getSpotOrderBookDepth({ symbol, limit: '10' });
+        if (orderBook.data.bids.length > 0) {
+            return parseFloat(orderBook.data.bids[9][0]);
         } else {
             throw new Error(`Error BitgetMarketService currentPrice: ${asset}`);
         }

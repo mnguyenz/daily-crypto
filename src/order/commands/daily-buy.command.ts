@@ -32,7 +32,7 @@ export class DailyBuyCommand extends BaseCommand {
 
     public async handle(): Promise<void> {
         const options = this.program.opts();
-        const { asset = ASSETS.CRYPTO.ETH, exchange = ExchangeEnum.MEXC } = options;
+        const { asset = ASSETS.CRYPTO.ETH, exchange = ExchangeEnum.BITGET } = options;
         try {
             const orderService = this.exchangeOrderService.getExchange(exchange);
             const marketService = this.exchangeMarketService.getExchange(exchange);
@@ -50,7 +50,11 @@ export class DailyBuyCommand extends BaseCommand {
         const getAverage = await this.averageCalculationService.getAverageByAsset(asset);
         if (getAverage.dcaBuyAfterSell > currentPrice) {
             return true;
+        } else {
+            if (asset === ASSETS.CRYPTO.BTC && getAverage.maxBuy > currentPrice) {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 }

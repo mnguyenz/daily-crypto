@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { M_BITGET_CLIENT, X_BITGET_CLIENT } from '~core/constants/bitget.constant';
 import { ASSETS, POSTFIX_NO_HYPHEN_USDT } from '~core/constants/crypto-code.constant';
 import { AccountEnum } from '~core/enums/exchanges.enum';
+import { roundUp } from '~core/helpers/number.helper';
 import { delay } from '~core/helpers/time.helper';
 import { IExchangeOrder } from '~order/interfaces/exchange-order.interface';
 
@@ -9,10 +10,22 @@ import { IExchangeOrder } from '~order/interfaces/exchange-order.interface';
 export class BitgetOrderService implements IExchangeOrder {
     constructor() {}
 
-    async buyMinimum(asset: string, account?: AccountEnum): Promise<void> {
+    async buyMinimum(asset: string, price: number, account?: AccountEnum): Promise<void> {
         try {
             const symbol = `${asset}${POSTFIX_NO_HYPHEN_USDT}`;
             const client = account === AccountEnum.M ? M_BITGET_CLIENT : X_BITGET_CLIENT;
+            let baseSizePrecision: number;
+            let minBuy: number;
+            try {
+                const symbolInfo = await client.getSpotSymbolInfo({ symbol });
+                baseSizePrecision = parseFloat(symbolInfo.data[0].quantityPrecision);
+                minBuy = parseFloat(symbolInfo.data[0].minTradeUSDT);
+            } catch (error) {
+                console.error('Error BitgetOrderService buyMinimum exchangeInfo error:', error);
+            }
+            const rawQuantity = minBuy / price;
+            const quantity = roundUp(rawQuantity, baseSizePrecision);
+
             const usdtEarnProducts = await client.getEarnSavingsProducts({
                 coin: ASSETS.FIAT.USDT,
                 filter: 'available'
@@ -23,17 +36,17 @@ export class BitgetOrderService implements IExchangeOrder {
             await client.earnRedeemSavings({
                 productId: flexibleUsdtProductId,
                 periodType: 'flexible',
-                amount: '1.01'
+                amount: String(quantity * price)
             });
-
             await this.waitForUsdtAvailability(ASSETS.FIAT.USDT, account);
 
             await client.spotSubmitOrder({
                 symbol,
                 side: 'buy',
-                orderType: 'market',
+                orderType: 'limit',
                 force: 'gtc',
-                size: '1.005'
+                size: String(quantity),
+                price: String(price),
             });
         } catch (error) {
             console.error('Error BitgetOrderService buyMinimum:', error);
