@@ -14,3 +14,9 @@ export const X_BITGET_CLIENT = new RestClientV2({
     apiSecret: env.BITGET.X_API_SECRET,
     apiPass: env.BITGET.X_API_PASS
 });
+
+export const C_BITGET_CLIENT = new RestClientV2({
+    apiKey: env.BITGET.C_API_KEY,
+    apiSecret: env.BITGET.C_API_SECRET,
+    apiPass: env.BITGET.C_API_PASS
+});

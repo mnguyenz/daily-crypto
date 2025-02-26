@@ -19,7 +19,10 @@ export const env = {
         M_API_PASS: process.env.M_BITGET_API_PASS,
         X_API_KEY: process.env.X_BITGET_API_KEY,
         X_API_SECRET: process.env.X_BITGET_API_SECRET,
-        X_API_PASS: process.env.X_BITGET_API_PASS
+        X_API_PASS: process.env.X_BITGET_API_PASS,
+        C_API_KEY: process.env.C_BITGET_API_KEY,
+        C_API_SECRET: process.env.C_BITGET_API_SECRET,
+        C_API_PASS: process.env.C_BITGET_API_PASS,
     },
     MEXC: {
         M_API_KEY: process.env.M_MEXC_API_KEY,
