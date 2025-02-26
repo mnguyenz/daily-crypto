@@ -1,4 +1,4 @@
-export type OverviewResponse = {
+export type SavingsResponse = {
     usdtBalance: number;
     stable: number;
     btcAmount: number;

@@ -3,11 +3,12 @@ import { AssetService } from './services/asset.service';
 import { AssetController } from './controllers/asset.controller';
 import { ExchangeAssetService } from './services/exchange-asset.service';
 import { BitgetAssetService } from './services/bitget-asset.service';
+import { BinanceAssetService } from './services/binance-asset.service';
 
 @Module({
     imports: [],
     controllers: [AssetController],
-    providers: [AssetService, ExchangeAssetService, BitgetAssetService],
+    providers: [AssetService, ExchangeAssetService, BinanceAssetService, BitgetAssetService],
     exports: []
 })
 export class AssetModule {}

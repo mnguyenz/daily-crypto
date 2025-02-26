@@ -1,4 +1,5 @@
 export enum ExchangeEnum {
+    BINANCE = 'Binance',
     BITGET = 'Bitget',
     MEXC = 'Mexc'
 }

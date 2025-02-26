@@ -13,6 +13,15 @@ export const env = {
         NAME: process.env.DATABASE_NAME,
         DATABASE_CA_PEM: process.env.DATABASE_CA_PEM
     },
+    BINANCE: {
+        API_URL: process.env.BINANCE_API_URL,
+        M_API_KEY: process.env.M_BINANCE_API_KEY,
+        M_API_SECRET: process.env.M_BINANCE_API_SECRET,
+        X_API_KEY: process.env.X_BINANCE_API_KEY,
+        X_API_SECRET: process.env.X_BINANCE_API_SECRET,
+        C_API_KEY: process.env.C_BINANCE_API_KEY,
+        C_API_SECRET: process.env.C_BINANCE_API_SECRET,
+    },
     BITGET: {
         M_API_KEY: process.env.M_BITGET_API_KEY,
         M_API_SECRET: process.env.M_BITGET_API_SECRET,
