@@ -1,7 +1,7 @@
-import { AccountEnum, ExchangeEnum } from "~core/enums/exchanges.enum";
-import { C_BITGET_CLIENT, M_BITGET_CLIENT, X_BITGET_CLIENT } from "./bitget.constant";
-import { C_BINANCE_CLIENT, M_BINANCE_CLIENT, X_BINANCE_CLIENT } from "./binance.constant";
-import { C_OKX_CLIENT, M_OKX_CLIENT, X_OKX_CLIENT } from "./okx.constant";
+import { AccountEnum, ExchangeEnum } from '~core/enums/exchanges.enum';
+import { C_BITGET_CLIENT, M_BITGET_CLIENT, X_BITGET_CLIENT } from './bitget.constant';
+import { C_BINANCE_CLIENT, M_BINANCE_CLIENT, X_BINANCE_CLIENT } from './binance.constant';
+import { C_OKX_CLIENT, M_OKX_CLIENT, X_OKX_CLIENT } from './okx.constant';
 
 export const EXCHANGE_CLIENT_MAP = {
     [ExchangeEnum.BINANCE]: {
