@@ -4,12 +4,14 @@ import { BitgetAssetService } from './bitget-asset.service';
 import { IExchangeAsset } from '~asset/interfaces/exchange-asset.interface';
 import { BinanceAssetService } from './binance-asset.service';
 import { OkxAssetService } from './okx-asset.service';
+import { BybitAssetService } from './bybit-asset.service';
 
 @Injectable()
 export class ExchangeAssetService {
     constructor(
         private binanceAssetService: BinanceAssetService,
         private bitgetAssetService: BitgetAssetService,
+        private bybitAssetService: BybitAssetService,
         private okxAssetService: OkxAssetService
     ) {}
 
@@ -19,6 +21,8 @@ export class ExchangeAssetService {
                 return this.binanceAssetService;
             case ExchangeEnum.BITGET:
                 return this.bitgetAssetService;
+            case ExchangeEnum.BYBIT:
+                return this.bybitAssetService;
             case ExchangeEnum.OKX:
                 return this.okxAssetService;
             default:
