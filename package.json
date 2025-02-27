@@ -31,7 +31,9 @@
     "@nestjs/typeorm": "11.0.0",
     "bingx-trading-api": "1.1.6",
     "bitget-api": "2.3.2",
+    "coinmarketcap-js": "^1.7.0",
     "mexc-api-sdk": "1.0.3",
+    "okx-api": "1.5.0",
     "pg": "8.13.3",
     "reflect-metadata": "0.2.0",
     "rxjs": "7.8.1"

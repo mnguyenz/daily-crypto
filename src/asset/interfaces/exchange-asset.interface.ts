@@ -1,6 +1,6 @@
-import { SavingsResponse } from '~asset/types/savings-response.type';
+import { AssetResponse } from '~asset/types/asset-response.type';
 import { AccountEnum } from '~core/enums/exchanges.enum';
 
 export interface IExchangeAsset {
-    savings(account: AccountEnum): Promise<SavingsResponse>;
+    overview(account: AccountEnum): Promise<AssetResponse>;
 }
