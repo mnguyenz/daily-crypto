@@ -14,3 +14,5 @@ export const X_BITGET_CLIENT = new RestClientV2({
     apiSecret: env.BITGET.X_API_SECRET,
     apiPass: env.BITGET.X_API_PASS
 });
+
+export const REDEMPTION_AMOUNT_ACCURACY = 8;

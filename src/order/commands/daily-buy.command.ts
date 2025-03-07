@@ -41,8 +41,8 @@ export class DailyBuyCommand extends BaseCommand {
                 await orderService.buyMinimum(asset, currentPrice, AccountEnum.X);
             }
         } catch (error) {
-            this.error(`Error DailyBuyCommand. Error: ${error.message}`);
-            throw error;
+            console.error('Error DailyBuyCommand error:', error);
+            throw new Error('Error DailyBuyCommand');
         }
     }
 

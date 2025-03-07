@@ -21,6 +21,7 @@ export class MexcOrderService implements IExchangeOrder {
                 minBuy = parseFloat(exchangeInformations.symbols[0].quoteAmountPrecision);
             } catch (error) {
                 console.error('Error MexcOrderService buyMinimum exchangeInfo error:', error);
+                process.exit(1);
             }
             const rawQuantity = minBuy / price;
             const quantity = Math.ceil(rawQuantity / baseSizePrecision) * baseSizePrecision;
@@ -30,6 +31,7 @@ export class MexcOrderService implements IExchangeOrder {
             });
         } catch (error) {
             console.error('Error MexcOrderService buyMinimum:', error);
+            process.exit(1);
         }
     }
 }

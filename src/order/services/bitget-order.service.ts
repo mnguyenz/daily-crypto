@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { M_BITGET_CLIENT, X_BITGET_CLIENT } from '~core/constants/bitget.constant';
+import { M_BITGET_CLIENT, REDEMPTION_AMOUNT_ACCURACY, X_BITGET_CLIENT } from '~core/constants/bitget.constant';
 import { ASSETS, POSTFIX_NO_HYPHEN_USDT } from '~core/constants/crypto-code.constant';
 import { AccountEnum } from '~core/enums/exchanges.enum';
 import { roundUp } from '~core/helpers/number.helper';
@@ -22,6 +22,7 @@ export class BitgetOrderService implements IExchangeOrder {
                 minBuy = parseFloat(symbolInfo.data[0].minTradeUSDT);
             } catch (error) {
                 console.error('Error BitgetOrderService buyMinimum exchangeInfo error:', error);
+                process.exit(1);
             }
             const rawQuantity = minBuy / price;
             const quantity = roundUp(rawQuantity, baseSizePrecision);
@@ -33,11 +34,17 @@ export class BitgetOrderService implements IExchangeOrder {
             const flexibleUsdtProductId = usdtEarnProducts.data.filter(
                 (product) => product.periodType === 'flexible'
             )[0].productId;
-            await client.earnRedeemSavings({
-                productId: flexibleUsdtProductId,
-                periodType: 'flexible',
-                amount: String(quantity * price)
-            });
+
+            try {
+                await client.earnRedeemSavings({
+                    productId: flexibleUsdtProductId,
+                    periodType: 'flexible',
+                    amount: String(roundUp(quantity * price, REDEMPTION_AMOUNT_ACCURACY))
+                });
+            } catch (error) {
+                console.error('Error BitgetOrderService buyMinimum earnRedeemSavings error:', error);
+                process.exit(1);
+            }
             await this.waitForUsdtAvailability(ASSETS.FIAT.USDT, account);
 
             await client.spotSubmitOrder({
@@ -49,7 +56,8 @@ export class BitgetOrderService implements IExchangeOrder {
                 price: String(price),
             });
         } catch (error) {
-            console.error('Error BitgetOrderService buyMinimum:', error);
+            console.error('Error BitgetOrderService buyMinimum error:', error);
+            process.exit(1);
         }
     }
 
@@ -65,10 +73,12 @@ export class BitgetOrderService implements IExchangeOrder {
                     return true;
                 }
             } catch (error) {
-                console.error('Error BitgetOrderService waitForUsdtAvailability:', error);
+                console.error('Error BitgetOrderService waitForUsdtAvailability error:', error);
+                process.exit(1);
             }
             await delay(interval);
         }
-        throw new Error('Timeout BitgetOrderService waitForUsdtAvailability.');
+        console.error('Timeout BitgetOrderService waitForUsdtAvailability');
+        process.exit(1);
     }
 }
