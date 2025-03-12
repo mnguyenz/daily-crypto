@@ -1,9 +1,8 @@
 export const ASSETS = {
     FIAT: {
         USDT: 'USDT',
-        USDC: 'USDC',
         FDUSD: 'FDUSD',
-        USDD: 'USDD'
+        USDC: 'USDC'
     },
     CRYPTO: {
         BTC: 'BTC',
@@ -11,8 +10,6 @@ export const ASSETS = {
         BNB: 'BNB'
     }
 };
-
-export const STABLE_COINS = [ASSETS.FIAT.USDT, ASSETS.FIAT.USDC, ASSETS.FIAT.FDUSD, ASSETS.FIAT.USDD];
 
 export const NO_HYPHEN_SYMBOLS = {
     BTCUSDT: 'BTCUSDT'

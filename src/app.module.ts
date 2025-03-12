@@ -7,10 +7,9 @@ import { commandConfig } from '~config/command.config';
 import { AverageCalculationModule } from '~average-calculation/average-calculation.module';
 import { OrderModule } from '~order/order.module';
 import { MarketModule } from '~market/market.module';
-import { AssetModule } from '~asset/asset.module';
 
 @Module({
-    imports: [commandConfig, databaseConfig, scheduleConfig, AssetModule, AverageCalculationModule, MarketModule, OrderModule],
+    imports: [commandConfig, databaseConfig, scheduleConfig, AverageCalculationModule, MarketModule, OrderModule],
     controllers: [AppController],
     providers: [AppService]
 })
